@@ -1,0 +1,53 @@
+.login {
+  display: grid;
+  place-items: center;
+}
+
+.form {
+  width: 40vw;
+  height: 50vh;
+  text-align: center;
+}
+
+.input {
+  width: 96%;
+  padding: 10px;
+  font-size: 15px;
+  margin: 8px;
+  outline-color: rgb(157, 29, 208);
+  border: 1px solid rgb(228, 227, 227);
+  border-radius: 5px;
+  height: 50px;
+}
+
+.btn {
+  width: 96%;
+  padding: 10px;
+  font-size: 20px;
+  margin: 8px;
+  border-radius: 5px;
+  border-color:  rgb(157, 29, 208);
+  color: white;
+  background-color: rgb(157, 29, 208);
+  &:hover{
+    background-color: transparent;
+    color: rgb(157, 29, 208);
+  }
+}
+
+.h2 {
+  margin: 10px;
+}
+
+.p{
+  font-size: large;
+  margin: 80px;
+}
+
+
+@media screen and (max-width: 768px) {
+  .form{
+    width: 90vw;
+  }
+}
+
