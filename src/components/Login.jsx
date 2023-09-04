@@ -1,17 +1,21 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Link, Navigate } from "react-router-dom";
 import axios from "axios";
 import "../styles/login.css";
 import { toast } from "react-hot-toast";
 import { server, Context } from "../main";
+import Loader from "./Loader";
 
 const login = () => {
+  const [isLoading, setIsLoading] = useState();
+
   const { isAuthenticated, setIsAuthenticated } = useContext(Context);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const loginHandler = async (e) => {
+    setIsLoading(true);
     e.preventDefault();
 
     try {
@@ -31,11 +35,15 @@ const login = () => {
 
       toast.success(data.message);
       setIsAuthenticated(true);
+      setIsLoading(false);
     } catch (error) {
       toast.error(error.response.data.message);
       setIsAuthenticated(false);
+      setIsLoading(false);
     }
   };
+
+  if (isLoading) return <Loader />;
 
   if (isAuthenticated) return <Navigate to={"/"} />;
 

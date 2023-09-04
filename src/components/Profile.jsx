@@ -3,11 +3,13 @@ import { useContext, useEffect } from "react";
 import { Context, server } from "../main";
 import { Navigate } from "react-router-dom";
 import axios from "axios";
+import Loader from "./Loader";
 
 const Profile = () => {
+  const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState({});
 
-  const { isAuthenticated } = useContext(Context);
+  const { isAuthenticated, setIsAuthenticated } = useContext(Context);
 
   useEffect(() => {
     getProfile();
@@ -20,8 +22,15 @@ const Profile = () => {
       });
 
       setUser(data.user);
-    } catch (error) {}
+      setIsAuthenticated(true);
+      setIsLoading(false);
+    } catch (error) {
+      setUser({});
+      setIsAuthenticated(false);
+      setIsLoading(false);
+    }
   };
+  if (isLoading) return <Loader />;
 
   if (!isAuthenticated) return <Navigate to={"/login"} />;
 

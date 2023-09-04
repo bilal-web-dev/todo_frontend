@@ -5,8 +5,11 @@ import { Context, server } from "../main";
 import { toast } from "react-hot-toast";
 import { Navigate } from "react-router-dom";
 import { AiFillDelete } from "react-icons/ai";
+import Loader from "./Loader";
 
 const Home = () => {
+  const [isLoading, setIsLoading] = useState(true);
+
   const { isAuthenticated } = useContext(Context);
 
   const [title, setTitle] = useState("");
@@ -65,16 +68,23 @@ const Home = () => {
   };
 
   const getAllTasks = async () => {
-    const { data } = await axios.get(`${server}/api/task/all`, {
-      withCredentials: true,
-    });
+    try {
+      const { data } = await axios.get(`${server}/api/task/all`, {
+        withCredentials: true,
+      });
 
-    setTask(data.tasks);
+      setTask(data.tasks);
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
     getAllTasks();
   });
+
+  if (isLoading) return <Loader />;
 
   if (!isAuthenticated) return <Navigate to={"/login"} />;
 
@@ -141,9 +151,8 @@ export const TaskCard = ({
       type="checkbox"
     />
     <AiFillDelete
-    className="icon"
+      className="icon"
       size={28}
-      
       color="red"
       onClick={() => deleteHandler(id)}
     />
