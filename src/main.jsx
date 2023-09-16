@@ -21,4 +21,4 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   </React.StrictMode>
 );
 
-export const server = "https://nodejs-todo-app-backend-oo35.onrender.com";
+export const server = "https://todo-app-backend-umber.vercel.app";
