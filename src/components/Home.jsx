@@ -9,6 +9,7 @@ import Loader from "./Loader";
 
 const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const [refresh, setRefresh] = useState(true);
 
   const { isAuthenticated } = useContext(Context);
 
@@ -21,6 +22,8 @@ const Home = () => {
       const { data } = await axios.delete(`${server}/api/task/delete/${id}`, {
         withCredentials: true,
       });
+
+      setRefresh(!refresh);
       toast.success(data.message);
     } catch (error) {
       toast.error(error.response.data.message);
@@ -36,6 +39,8 @@ const Home = () => {
           withCredentials: true,
         }
       );
+      setRefresh(!refresh);
+
       toast.success(data.message);
     } catch (error) {
       toast.error(error.response.data.message);
@@ -62,6 +67,7 @@ const Home = () => {
       toast.success(data.message);
       setTitle("");
       setDescription("");
+      setRefresh(!refresh);
     } catch (error) {
       toast.error(error.response.data.message);
     }
@@ -82,7 +88,7 @@ const Home = () => {
 
   useEffect(() => {
     getAllTasks();
-  });
+  }, [refresh]);
 
   if (isLoading) return <Loader />;
 
