@@ -32,7 +32,7 @@ const Header = () => {
 
   return (
     <div className="main">
-      <div className="logo">TODO</div>
+      <div className="logo">TODOO</div>
       <div className="links">
         <Link onClick={customToast} to={"/"}>
           {" "}
